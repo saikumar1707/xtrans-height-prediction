@@ -1,46 +1,98 @@
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-        <meta charset="UTF-8">
-        <title>Height Prediction</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='table.css') }}">
-        </head>
-        <script>
-            function navigateToPage() {
-            // Change the URL to the desired destination
-            window.location.href = 'http://127.0.0.1:5000';
-            }
-        </script>
-        <body>
-        <div class="container">
-            <table class="prediction-table">
-            <tr>
-                <th>Model</th>
-                <td>{{ result['Model'] }}</td>
-            </tr>
-            <tr>
-                <th>Given Age</th>
-                <td>{{ result['Age'] }}</td>
-            </tr>
-            <tr>
-                <th>Given Weight (Kg)</th>
-                <td>{{ result['Given Weight (Kg)'] }}</td>
-            </tr>
-            <tr>
-                <th>Predicted Height (m)</th>
-                <td>{{ result['Height(m)'] }}</td>
-            </tr>
-            <tr>
-                <th>R2 Score</th>
-                <td>{{ result['r2 score'] }}</td>
-            </tr>
-            <tr>
-                <th>Mean Square Error</th>
-                <td>{{ result['Mean square error'] }}</td>
-            </tr>
-            </table>
-            <button type="button" onclick="navigateToPage()">Go to Home</button>
-            
-        </div>  
-        </body>
-        </html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Height Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='table.css') }}">
+</head>
+
+<script>
+    function navigateToPage() {
+    // Use a relative URL for redirection
+        window.location.href = "/";
+    }
+
+
+
+</script>
+<body>
+    <div class="main-container">
+        <div class="images-container">
+            <div class="image">
+                {% if result.Model == 'linear' %}
+                <a href="https://www.javatpoint.com/linear-regression-in-machine-learning" target="_blank">
+                <img src="{{ url_for('static', filename='lrg.png') }}" alt="Linear Model Image" width="300" height="300">
+                <p>Learn Linear Regression model</p>
+                </a>
+                {% elif result.Model == 'SVM' %}
+                <a href="https://www.javatpoint.com/machine-learning-support-vector-machine-algorithm" target="_blank">
+                <img src="{{ url_for('static', filename='svmg.png') }}" alt="SVM Model Image" width="400" height="300">
+                <p>Learn SVM model</p>
+                </a>
+                {% elif result.Model == 'KNN' %}
+                <a href="https://www.javatpoint.com/k-nearest-neighbor-algorithm-for-machine-learning" target="_blank">
+                <img src="{{ url_for('static', filename='knng.png') }}" alt="KNN Model Image" width="300" height="300">
+                <p>Learn KNN model</p>
+                </a>
+                {% elif result.Model == 'Random Forest' %}
+                <a href="https://www.javatpoint.com/machine-learning-random-forest-algorithm" target="_blank">
+                <img src="{{ url_for('static', filename='rfg.png') }}" alt="Random Forest Model Image" width="300" height="300">
+                <p>Learn Random Forest model</p>
+                </a>
+                {% elif result.Model == 'ANN' %}
+                <a href="https://www.javatpoint.com/artificial-neural-network" target="_blank">
+                <img src="{{ url_for('static', filename='anng.png') }}" alt="ANN Model Image" width="400" height="300">
+                <p>Learn ANN model</p>
+                </a>
+                {% endif %}
+            </div>
+            <div class="table-container">
+                <h1>Prediction result and performance parameters</h1>
+                <table class="prediction-table">
+                    <tr>
+                        <th>Model</th>
+                        <td>{{ result['Model'] }}</td>
+                    </tr>
+                    <tr>
+                        <th>Given Age</th>
+                        <td>{{ result['Age'] }}</td>
+                    </tr>
+                    <tr>
+                        <th>Given Weight (Kg)</th>
+                        <td>{{ result['Given Weight (Kg)'] }}</td>
+                    </tr>
+                    <tr>
+                        <th>Predicted Height (m)</th>
+                        <td>{{ result['Height(m)'] }}</td>
+                    </tr>
+                    <tr>
+                        <th>R2 Score</th>
+                        <td>{{ result['r2 score'] }}</td>
+                    </tr>
+                    <tr>
+                        <th>Mean Square Error</th>
+                        <td>{{ result['Mean square error'] }}</td>
+                    </tr>
+                </table>
+                <button type="button" onclick="navigateToPage()">Go to Home</button>
+
+            </div>
+            <div class="image">
+                {% if result.Model == 'linear' %}
+                <img src="{{ url_for('static', filename='lr.jpeg') }}" alt="Linear Model Image" width="400" height="550">
+                {% elif result.Model == 'SVM' %}
+                <img src="{{ url_for('static', filename='svm.jpeg') }}" alt="SVM Model Image" width="300" height="650">
+                {% elif result.Model == 'KNN' %}
+                <img src="{{ url_for('static', filename='knn.jpeg') }}" alt="KNN Model Image" width="300" height="550">
+                {% elif result.Model == 'Random Forest' %}
+                <img src="{{ url_for('static', filename='rf.jpeg') }}" alt="Random Forest Model Image" width="300" height="550">
+                {% elif result.Model == 'ANN' %}
+                <img src="{{ url_for('static', filename='ann.jpeg') }}" alt="ANN Model Image" width="300" height="650">
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
