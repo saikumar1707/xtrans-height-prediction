@@ -1,23 +1,31 @@
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #ffffff; /* Change this to your preferred background color */
+    background-color: #ffffff;
     margin: 0;
     padding: 0;
 }
 
-.container {
-    max-width: 800px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.images-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100vh; 
+    padding: 10px;/* Set the height to the full height of the viewport */
+}
+
+.image {
+    flex: 0 0 150px;
+    padding: 15px; /* Fixed width for images */
+}
+
+.table-container {
+    flex-grow: 1; /* Allow the table container to grow and take remaining space */
 }
 
 .prediction-table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 20px;
+    padding : 20px;
 }
 
 .prediction-table th, .prediction-table td {
@@ -38,6 +46,7 @@ button {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    margin-top: 10px;
     transition: background-color 0.3s ease;
 }
 
@@ -45,19 +54,12 @@ button:hover {
     background-color: #45a049;
 }
 
-h1 {
-    text-align: center;
-    color: #333;
-}
-
 /* Responsive styles */
 @media screen and (max-width: 600px) {
-    .container {
-        padding: 10px;
-    }
     .prediction-table th, .prediction-table td {
         padding: 10px;
     }
+
     button {
         padding: 12px;
     }
