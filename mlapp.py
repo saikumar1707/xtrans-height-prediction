@@ -1,4 +1,5 @@
-from flask import Flask, redirect, url_for, render_template, request,jsonify
+from flask import Flask, redirect, url_for, render_template, request,jsonify,flash
+from pymongo.errors import AutoReconnect
 from pymongo import MongoClient
 import pandas as pd
 import traceback
@@ -44,7 +45,7 @@ model1.fit(X_train, y_train, epochs=49, batch_size=16, validation_data=(X_test, 
 
 
 app = Flask(__name__)
-
+app.secret_key = 'your_secret_key'
 
 @app.route('/')
 def welcome():
@@ -136,13 +137,24 @@ def submit():
                 'name': name  # Add the prediction field if needed
             }
             if not name:
-                # If name is empty, return a JSON response indicating the error
-                return jsonify({'error': 'Name is required'})
+                flash('Name is required', 'error')
+                return render_template('ml.html')
+       
+
             db[name].insert_one(data)
             return redirect(url_for('success', model=model, score=weight, age=age))
+        
+    except ValueError:
+        flash('Invalid input.Please enter given parameters', 'error')
+        return render_template('ml.html')
+    except AutoReconnect :
+        flash('Please check your internet connection or your IP address', 'error')
+        return render_template('ml.html')
+
     except Exception as e:
         traceback.print_exc()  # Print the traceback to the console
         raise e 
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
+
