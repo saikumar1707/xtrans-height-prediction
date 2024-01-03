@@ -1,43 +1,75 @@
 
+
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Height prediction</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='chatgpt.css') }}"></head>
-<body >
-    
+    <link rel="stylesheet" href="{{ url_for('static', filename='chatgpt.css') }}">
+</head>
+
+<body>
+
+
     <h1>
-        <a href="https://xtranssolutions.com/about/">
+        <a href="https://xtranssolutions.com/about/" target="_blank">
             <img src="{{ url_for('static', filename='logo.jpg') }}" alt="xtranssolutions" width="80" height="80"><br>
         </a>
         Height Prediction Using different ML models
     </h1>
-    <form action="{{ url_for('submit') }}" method='post'>
-        <p>
-            <label for="name">Enter your name:</label>
-            <input type="text" id="name" name="name">
-        </p>
-            <label for="weight">Enter the Weight to predict the height : </label>
-            <input type="number" id="weight" name="weight">
-            <label for="weight">in KG </label>
-        </p>
-        <p>
-            <label for="Age">Enter the Age to predict the height : </label>
-            <input type="number" id="Age" name="Age">
-        </p>
-        <p>
-            <label for="model">Select the required Machine Learning model to predict the height: </label>
-            <select name="model" id="model">
-                <option value="linear">linear</option>
-                <option value="KNN">KNN</option>
-                <option value="SVM">SVM</option>
-                <option value="Random Forest">Random Forest</option>
-                <option value="ANN">ANN</option>
-            </select>
-        </p>
-        <input type="submit" value="Submit">
+    <div class="images-container">
+        <div class="image">
+            <a href="https://www.calculator.net/age-calculator.html" target="_blank">
+                <img src="{{ url_for('static', filename='age.jpg') }}" alt="age calculator" width="320" height="320"><br>
+                <p>Click here for age calculator</p>
+            </a>
+        </div>
+        
+        <div class="form-container">
+            <form action="{{ url_for('submit') }}" method='post'>
+                <p>
+                    <label for="name">Enter your name:</label>
+                    <input type="text" id="name" name="name">
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                    <div class="alert alert-danger">
+                        {% for category, message in messages %}
+                        {{ message }}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    {% endwith %}
+                </p>
+                <label for="weight">Enter the Weight (KG) to predict the height : </label>
+                <input type="number" id="weight" name="weight">
+                </p>
+                <p>
+                    <label for="Age">Enter the Age to predict the height : </label>
+                    <input type="number" id="Age" name="Age">
+                </p>
+                <p>
+                    <label for="model">Select the required Machine Learning model to predict the height: </label>
+                    <select name="model" id="model">
+                        <option value="linear">linear</option>
+                        <option value="KNN">KNN</option>
+                        <option value="SVM">SVM</option>
+                        <option value="Random Forest">Random Forest</option>
+                        <option value="ANN">ANN</option>
+                    </select>
+                </p>
+                <input type="submit" value="Submit">
 
-    </form>
-    
+            </form>
+        </div>
+        <div class="image">
+            <a href="https://www.calculator.net/weight-calculator.html" target="_blank">
+                <img src="{{ url_for('static', filename='weight.jpg') }}" alt="weight converter" width="320" height="320"><br>
+                <p>Click here to convert weight into KG</p>
+            </a>
+        </div>
+    </div>
+
 </body>
+
 </html>
+
