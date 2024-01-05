@@ -36,12 +36,6 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random
 scaler = StandardScaler()
 X_train=scaler.fit_transform(X_train)
 X_test=scaler.transform(X_test)
-model1 = keras.Sequential([
-            layers.Dense(34, activation='relu', input_shape=[X_train.shape[1]]),
-            layers.Dense(1)  # Output layer for regression
-        ])
-model1.compile(optimizer='rmsprop', loss='mean_squared_error')
-model1.fit(X_train, y_train, epochs=49, batch_size=16, validation_data=(X_test, y_test))
 
 
 app = Flask(__name__)
