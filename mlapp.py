@@ -23,7 +23,7 @@ MONGO_URI = f"mongodb+srv://{MONGO_USERNAME}:{MONGO_PASSWORD}@{MONGO_CLUSTER_URL
 client = MongoClient(MONGO_URI)
 db = client[MONGO_DATABASE]
 
-df=pd.read_csv(r"C:\Users\hp\Desktop\bmi.csv")
+df=pd.read_csv(r"bmi.csv")
 zero_not_accepted = ['Height', 'Weight',"Age", "Bmi"]
 for column in zero_not_accepted:
     df[column] = df[column].replace(0, np.NaN)
