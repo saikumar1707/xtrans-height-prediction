@@ -3,14 +3,13 @@ from pymongo.errors import AutoReconnect
 from pymongo import MongoClient
 import pandas as pd
 import traceback
-from tensorflow import keras
-from tensorflow.keras import layers
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
 import matplotlib.pyplot as plt
-
+from tensorflow import keras
+from tensorflow.keras import layers
 from sklearn.metrics import mean_squared_error, r2_score
 import os
 
@@ -25,7 +24,7 @@ MONGO_URI = f"mongodb+srv://{MONGO_USERNAME}:{MONGO_PASSWORD}@{MONGO_CLUSTER_URL
 client = MongoClient(MONGO_URI)
 db = client[MONGO_DATABASE]
 
-df=pd.read_csv(r"bmi.csv")
+df=pd.read_csv(r"C:\Users\hp\Desktop\bmi.csv")
 zero_not_accepted = ['Height', 'Weight',"Age", "Bmi"]
 for column in zero_not_accepted:
     df[column] = df[column].replace(0, np.NaN)
@@ -38,6 +37,12 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random
 scaler = StandardScaler()
 X_train=scaler.fit_transform(X_train)
 X_test=scaler.transform(X_test)
+model1 = keras.Sequential([
+            layers.Dense(34, activation='relu', input_shape=[X_train.shape[1]]),
+            layers.Dense(1)  # Output layer for regression
+        ])
+model1.compile(optimizer='rmsprop', loss='mean_squared_error')
+model1.fit(X_train, y_train, epochs=49, batch_size=16, validation_data=(X_test, y_test))
 
 
 app = Flask(__name__)
