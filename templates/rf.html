@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Inputs with Container</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .input-container {
+            max-width: 400px;
+            text-align: center;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            margin-bottom: 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .submit-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .submit-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Enter Details</h1>
+
+    <div class="input-container">
+        <form action="/Random_Forest" method="POST">
+            <div class="input-group">
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age" placeholder="Enter Age" required>
+            </div>
+            <div class="input-group">
+                <label for="weight">Weight:</label>
+                <input type="number" id="weight" name="weight" placeholder="Enter Weight" required>
+            </div>
+            <div class="input-group">
+                <label for="estimators">Estimator value:</label>
+                <input type="number" id="estimators" name="estimators" placeholder="Enter estimator value" required>
+            </div>
+            <br>
+            <button type="submit" class="submit-button">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

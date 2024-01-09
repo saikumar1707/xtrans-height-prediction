@@ -18,10 +18,15 @@
         Height Prediction Using different ML models
     </h1>
     <div class="images-container">
+
         <div class="image">
+            <img src="{{ url_for('static', filename='help.jpg') }}" alt="ML model learning" width="320" height="320">
+
             <a href="https://www.calculator.net/age-calculator.html" target="_blank">
-                <img src="{{ url_for('static', filename='age.jpg') }}" alt="age calculator" width="320" height="320"><br>
                 <p>Click here for age calculator</p>
+            </a>
+            <a href="https://www.calculator.net/weight-calculator.html" target="_blank">
+                <p>Click here to convert weight into KG</p>
             </a>
         </div>
         
@@ -62,12 +67,14 @@
             </form>
         </div>
         <div class="image">
-            <a href="https://www.calculator.net/weight-calculator.html" target="_blank">
-                <img src="{{ url_for('static', filename='weight.jpg') }}" alt="weight converter" width="320" height="320"><br>
-                <p>Click here to convert weight into KG</p>
+            <a href="/learn" target="_blank" class="center-link">
+                <img src="{{ url_for('static', filename='ml.jpeg') }}" alt="ML model learning" width="320" height="320">
+                <p>Learn more about ML models</p>
             </a>
         </div>
+        
     </div>
+    
 
 </body>
 

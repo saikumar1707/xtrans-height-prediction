@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ML Model Selection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .model-buttons {
+            margin-top: 20px;
+        }
+
+        .model-button {
+            padding: 10px 20px;
+            margin: 10px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        .model-button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Select an ML Model</h1>
+    <img src="{{ url_for('static', filename='lrg.png') }}" alt="Linear Regression" height="300">
+    <img src="{{ url_for('static', filename='knng.png') }}" alt="KNN regression" height="300">
+    <img src="{{ url_for('static', filename='svmg.png') }}" alt="SVM Regression" height="300">
+    <img src="{{ url_for('static', filename='rfg.png') }}" alt="Random Forest" height="300">
+    <img src="{{ url_for('static', filename='anng.png') }}" alt="ANN " height="300">
+
+    <div class="model-buttons">
+        <button class="model-button" onclick="window.location.href='https://www.javatpoint.com/linear-regression-in-machine-learning'">Linear Regression</button>
+        <button class="model-button" onclick="window.location.href='/knn'">K-Nearest Neighbors</button>
+        <button class="model-button" onclick="window.location.href='/svm'">Support Vector Machine</button>
+        <button class="model-button" onclick="window.location.href='/rf'">Random Forest</button>
+        <button class="model-button" onclick="window.location.href='/ANN'">ANN</button>
+    </div>
+</body>
+</html>

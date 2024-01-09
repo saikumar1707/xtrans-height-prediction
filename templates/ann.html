@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ANN html page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .input-container {
+            max-width: 400px;
+            text-align: center;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            margin-bottom: 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .submit-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .submit-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Enter Details</h1>
+
+    <div class="input-container">
+        <form action="ANN1" method="POST">
+            <div class="input-group">
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age" placeholder="Enter Age" required>
+            </div>
+            <div class="input-group">
+                <label for="weight">Weight:</label>
+                <input type="number" id="weight" name="weight" placeholder="Enter Weight" required>
+            </div>
+            <div class="input-group">
+                <label for="epochs">Epochs:</label>
+                <input type="number" id="epochs" name="epochs" placeholder="Number of epochs" required>
+            </div>
+            <div class="input-group">
+                <label for="nodes_input">Number of nodes for input layer:</label>
+                <input type="number" id="nodes_input" name="nodes_input" placeholder="Number of nodes" required>
+            </div>
+            <div class="input-group">
+                <label for="num">Number of layers:</label>
+                <input type="number" id="num" name="num" placeholder="Number of hidden layers" required>
+            </div>
+            <div class="input-group">
+                <label for="nodes_hid">Nodes for hidden layers:</label>
+                <input type="number" id="nodes_hid" name="nodes_hid" placeholder="Number of nodes for hidden layers" required>
+            </div>
+            
+            <p>
+                <label for="act_input">Select the Activation function for input layer </label>
+                <select name="act_input" id="act_input">
+                    <option value="relu">Relu</option>
+                    <option value="sigmoid">Sigmoid</option>
+                    <option value="tanh">Tan(h)</option>
+                    <option value="elu">Elu</option>
+                    <option value="softmax">Softmax</option>
+                    <option value="LeakyReLU">Leaky Relu</option>
+                </select>
+            </p>
+            <p>
+                <label for="act_hid">Select the Activation function for Hidden layers </label>
+                <select name="act_hid" id="act_hid">
+                    <option value="relu">Relu</option>
+                    <option value="sigmoid">Sigmoid</option>
+                    <option value="tanh">Tan(h)</option>
+                    <option value="elu">Elu</option>
+                    <option value="softmax">Softmax</option>
+                    <option value="LeakyReLU">Leaky Relu</option>
+                </select>
+            </p>
+            <p>
+                <label for="optim">Optimizer function </label>
+                <select name="optim" id="optim">
+                    <option value="rmsprop">RMSProp</option>
+                    <option value="sgd">SGD</option>
+                    <option value="Adam">ADAM</option>
+                    <option value="Adagrad">Adagrad</option>
+                    <option value="Adadelta">AdaDelta</option>
+                    <option value="Nadam">Nadam</option>
+                </select>
+            </p>
+            <br>
+            <button type="submit" class="submit-button">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
