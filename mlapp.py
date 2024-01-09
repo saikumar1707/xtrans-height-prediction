@@ -48,6 +48,10 @@ model1.fit(X_train, y_train, epochs=49, batch_size=16, validation_data=(X_test, 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
 
+@app.route('/learn')
+def learn():
+    return render_template('learn.html')
+
 @app.route('/')
 def welcome():
     return render_template('ml.html')
@@ -59,14 +63,11 @@ def success(model, score,age):
         regression=LinearRegression(n_jobs=-1)
         regression.fit(X_train,y_train)
         linear_y_pred=regression.predict(X_test)
-        p=plt.scatter(df['Height'],df['Weight'])
-        plt.xlabel("Height")
-        plt.ylabel("Weight")
         mse =round(mean_squared_error(y_test, linear_y_pred),4)
         linear_score=round(r2_score(y_test,linear_y_pred),2)
         line=float(regression.predict(scaler.transform([[int(age),int(score)]])))
         line=round(line,2)
-        fo = {'Model':model,'Age':age,'Given Weight (Kg)': score, 'Height(m)': line,'r2 score': linear_score,'Mean square error':mse,'graph':p}
+        fo = {'Model':model,'Age':age,'Given Weight (Kg)': score, 'Height(m)': line,'r2 score': linear_score,'Mean square error':mse}
         return render_template('result.html', result=fo)
 
     if model == "SVM":
@@ -87,7 +88,7 @@ def success(model, score,age):
         knn_regression.fit(X_train, y_train)
         # Convert entered_value to 2D array with one feature
         entered_value_2D = np.array([[int(age),int(score)]])
-         # Scale the entered_value using the same scaler used for training data
+        # Scale the entered_value using the same scaler used for training data
         entered_value_scaled = scaler.transform(entered_value_2D)
         knn_y_pred = knn_regression.predict(entered_value_scaled)
         mse =round(mean_squared_error(y_test, knn_regression.predict(X_test)),4)
@@ -101,7 +102,6 @@ def success(model, score,age):
         reg= RandomForestRegressor(n_estimators= 13, criterion="poisson")
         reg.fit(X_train, y_train)
         rf_y_pred = reg.predict(X_test)
-        svm_score=r2_score(y_test,rf_y_pred)
         rf_score=round(r2_score(y_test,rf_y_pred),2)
         mse =round(mean_squared_error(y_test, rf_y_pred),4)
         rf=float(reg.predict(np.array([int(age),int(score)]).reshape(1,-1)))
@@ -140,8 +140,6 @@ def submit():
             if not name:
                 flash('Name is required', 'error')
                 return render_template('ml.html')
-       
-
             db[name].insert_one(data)
             return redirect(url_for('success', model=model, score=weight, age=age))
         
@@ -155,6 +153,154 @@ def submit():
     except Exception as e:
         traceback.print_exc()  # Print the traceback to the console
         raise e 
+
+#code for learning ML
+
+
+
+    
+
+@app.route('/svm')
+def svm4():
+    return render_template('svm.html')
+@app.route('/svm1', methods=['POST', 'GET'])
+def svm1():
+    try:
+        if request.method == 'POST':
+            age = float(request.form['age'])
+            kerl = request.form['kernel_type']
+            weight = float(request.form['weight'])
+            from sklearn.svm import SVR
+            Sreg=SVR(kernel=kerl)
+            Sreg.fit(X_train,y_train)
+            svm_y_pred = Sreg.predict(X_test)
+            mse =round(mean_squared_error(y_test, svm_y_pred),4)
+            svm_score=round(r2_score(y_test,svm_y_pred),2)
+            svm=float(Sreg.predict(np.array([int(age),int(weight)]).reshape(1,-1)))
+            svm=round(svm,2)
+            fo = {'Age':age,'Given Weight (Kg)': weight, 'Height(m)': svm,'r2 score': svm_score,'Mean square error':mse}
+            return render_template('result.html', result=fo)
+
+    except Exception as e:
+        traceback.print_exc()  # Print the traceback to the console
+        raise e 
+
+
+
+@app.route('/rf')
+def rf4():
+    return render_template('rf.html')
+@app.route('/Random_Forest', methods=['POST', 'GET'])
+def rf():
+    try:
+        if request.method == 'POST':
+            age = float(request.form['age'])
+            n = int(request.form['estimators'])
+            weight = float(request.form['weight'])
+            from sklearn.ensemble import RandomForestRegressor
+            reg= RandomForestRegressor(n_estimators= n, criterion="poisson")
+            reg.fit(X_train, y_train)
+            rf_y_pred = reg.predict(X_test)
+            rf_score=round(r2_score(y_test,rf_y_pred),2)
+            mse =round(mean_squared_error(y_test, rf_y_pred),4)
+            rf=float(reg.predict(np.array([int(age),int(weight)]).reshape(1,-1)))
+            rf=round(rf,2)
+            rf_score=round(rf_score,2)
+            fo = {'Age':age,'Given Weight (Kg)': weight, 'Height(m)': rf,'r2 score': rf_score,'Mean square error':mse}
+            return render_template('result.html', result=fo)
+    except Exception as e:
+        traceback.print_exc()  # Print the traceback to the console
+        raise e 
+    
+@app.route('/knn')
+def knn4():
+    return render_template('knn.html')
+@app.route('/KNN1', methods=['POST', 'GET'])
+def KNN1():
+    try:
+        if request.method == 'POST':
+            age = float(request.form['age'])
+            n = int(request.form['k_value'])
+            weight = float(request.form['weight'])
+            from sklearn.neighbors import KNeighborsRegressor
+            knn_regression = KNeighborsRegressor(n_neighbors=n, metric='euclidean')
+            knn_regression.fit(X_train, y_train)
+            # Convert entered_value to 2D array with one feature
+            entered_value_2D = np.array([[int(age),int(weight)]])
+            # Scale the entered_value using the same scaler used for training data
+            entered_value_scaled = scaler.transform(entered_value_2D)
+            knn_y_pred = knn_regression.predict(entered_value_scaled)
+            mse =round(mean_squared_error(y_test, knn_regression.predict(X_test)),4)
+            knn_score = round(r2_score(y_test, knn_regression.predict(X_test)),2)
+            knn = round(float(knn_y_pred[0]), 2)
+            fo = { 'Height(m)': knn,'r2 score': knn_score,'Mean square error':mse}
+            return render_template('result.html', result=fo)
+    except Exception as e:
+        traceback.print_exc()  # Print the traceback to the console
+        raise e 
+
+
+@app.route('/ANN')
+def ann4():
+    return render_template('ann.html')
+@app.route('/ANN1', methods=['POST', 'GET'])
+def ANN1():
+    try:
+        if request.method == 'POST':
+            age = float(request.form['age'])
+            epochs = int(request.form['epochs'])
+            weight = float(request.form['weight'])
+            nodes_input = int(request.form['nodes_input'])
+            act_input=request.form['act_input']
+            num=int(request.form['num'])
+            nodes_hid = int(request.form['nodes_hid'])
+            act_hid=request.form['act_hid']
+            optim=request.form['optim']
+
+            model1 = keras.Sequential()
+    
+            # Input layer
+            model1.add(layers.Dense(nodes_input, activation=act_input, input_shape=[X_train.shape[1]]))
+            
+            # Hidden layers
+            for i in range(1, num):
+                model1.add(layers.Dense(nodes_hid, activation=act_hid))
+            
+            # Output layer for regression
+            model1.add(layers.Dense(1))
+            
+            # Compile the model
+            model1.compile(optimizer=optim, loss='mean_squared_error')
+            
+            # Train the model
+            model1.fit(X_train, y_train, epochs=epochs, batch_size=16, validation_data=(X_test, y_test))
+            y_pred = model1.predict(X_test)
+            ann_score = round(r2_score(y_test, y_pred),2)
+            mse=round(mean_squared_error(y_test, y_pred),4)
+            new_weight = np.array([[int(age),int(weight)]])
+            new_weight_scaled = scaler.transform(new_weight)
+            ann_prediction = round(model1.predict(new_weight_scaled)[0][0],2)
+    
+            fo = {'Age':age,'Given Weight (Kg)': weight, 'Height(m)': ann_prediction,'r2 score': ann_score,'Mean square error':mse}
+            return render_template('result.html', result=fo)
+
+    except Exception as e:
+        traceback.print_exc()  # Print the traceback to the console
+        raise e 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
