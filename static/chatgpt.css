@@ -11,6 +11,19 @@ body {
     align-items: center;
     margin-bottom: 20px;
 }
+a.center-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    text-decoration: underline;
+  }
+  
+  a.center-link p {
+    margin: 0; /* Remove default margin for the paragraph */
+    padding: 10px;
+  }
 
 .images-container p {
     text-align: center;
@@ -35,11 +48,9 @@ button {
 }
 
 form {
-    max-width: 600px;
     margin: 20px auto;
     background-color: #fff;
     padding: 10px;
-    border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
