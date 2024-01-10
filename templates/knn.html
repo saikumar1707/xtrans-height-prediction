@@ -5,25 +5,68 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='chatgpt.css') }}">
 </head>
 <body>
-    <h1>Enter Details</h1>
+    <h1>
+        <a href="https://xtranssolutions.com/about/" target="_blank">
+            <img src="{{ url_for('static', filename='logo.jpg') }}" alt="xtranssolutions" width="80" height="80"><br>
+        </a>
+        KNN Regression model
+    </h1>
+    <div class = "images-container">
+        <div class="image">
+            <a href="https://www.javatpoint.com/k-nearest-neighbor-algorithm-for-machine-learning" target="_blank">
+                <img src="{{ url_for('static', filename='knng.png') }}" alt="ML model learning" width="320" height="320">
+                <p>Click here to learn more about KNN Model</p>
+            </a>
+        </div>
+        <div class="form-container">
+            <form action="/KNN1" method="POST">
+                <div class="input-group">
+                    <label for="Age">Enter the Age to predict the height : </label>
+                    <input type="number" id="age" name="age" placeholder="Enter Age" required>
+                </div>
+                <div class="input-group">
+                    
+                    <label for="weight">Enter the Weight (KG) to predict the height : </label>
+                    <input type="number" id="weight" name="weight" placeholder="Enter Weight" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="k_value">K Value:</label>
+                    <input type="number" id="k_value" name="k_value" placeholder="Enter K value" required>
+                </div>
+                <br>
+                <script>
+                    function goBack() {
+                        window.history.back();
+                    }
+                </script>
+                <button type="submit" class="submit-button">Submit</button>
+                 <button onclick="goBack()">Go Back</button>
+                
+    
+                
+            </form>
+        </div>
+        <div class = "text">
+            <ul>
+                <li>The "k" value in K-Nearest Neighbors (KNN) determines the number of nearby data points considered for predictions.</li><br>
+                <li>Choosing an appropriate "k" involves balancing model complexity: smaller values might overfit, capturing noise, while larger values might oversimplify, potentially leading to underfitting.</li><br>
+                <li>This often necessitates cross-validation or grid search for optimal selection based on dataset characteristics.</li>
+            </ul>
+        </div>
+        
 
-    <div class="input-container">
-        <form action="/KNN1" method="POST">
-            <div class="input-group">
-                <label for="age">Age:</label>
-                <input type="number" id="age" name="age" placeholder="Enter Age" required>
-            </div>
-            <div class="input-group">
-                <label for="weight">Weight:</label>
-                <input type="number" id="weight" name="weight" placeholder="Enter Weight" required>
-            </div>
-            <div class="input-group">
-                <label for="k_value">K Value:</label>
-                <input type="number" id="k_value" name="k_value" placeholder="Enter K value" required>
-            </div>
-            <br>
+    </div>
+    <div class = "form-container">
+        <form action="/send" method="POST">
+            <label for="textbox">Any suggestions / queries !?</label>
+            <input type="text" id="textbox" name="textbox">
+            
             <button type="submit" class="submit-button">Submit</button>
         </form>
     </div>
+
+    
+    
 </body>
 </html>
