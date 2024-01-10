@@ -156,7 +156,26 @@ def submit():
 
 #code for learning ML
 
+@app.route('/send', methods=['POST', 'GET'])
+def send():
+    try:
+        if request.method == 'POST':
+            Queries = request.form['textbox']
 
+            data = {
+                'Query': Queries,
+            }
+            
+            db["Suggestions"].insert_one(data)
+            return redirect(url_for('welcome'))
+        
+    except AutoReconnect :
+        flash('Please check your internet connection or your IP address', 'error')
+        return render_template('learn.html')
+
+    except Exception as e:
+        traceback.print_exc()  # Print the traceback to the console
+        raise e 
 
     
 
@@ -178,7 +197,7 @@ def svm1():
             svm_score=round(r2_score(y_test,svm_y_pred),2)
             svm=float(Sreg.predict(np.array([int(age),int(weight)]).reshape(1,-1)))
             svm=round(svm,2)
-            fo = {'Age':age,'Given Weight (Kg)': weight, 'Height(m)': svm,'r2 score': svm_score,'Mean square error':mse}
+            fo = {'Model':'SVM','Age':age,'Given Weight (Kg)': weight, 'Height(m)': svm,'r2 score': svm_score,'Mean square error':mse}
             return render_template('result.html', result=fo)
 
     except Exception as e:
@@ -206,7 +225,7 @@ def rf():
             rf=float(reg.predict(np.array([int(age),int(weight)]).reshape(1,-1)))
             rf=round(rf,2)
             rf_score=round(rf_score,2)
-            fo = {'Age':age,'Given Weight (Kg)': weight, 'Height(m)': rf,'r2 score': rf_score,'Mean square error':mse}
+            fo = {'Model':'Random Forest','Age':age,'Given Weight (Kg)': weight, 'Height(m)': rf,'r2 score': rf_score,'Mean square error':mse}
             return render_template('result.html', result=fo)
     except Exception as e:
         traceback.print_exc()  # Print the traceback to the console
@@ -233,7 +252,7 @@ def KNN1():
             mse =round(mean_squared_error(y_test, knn_regression.predict(X_test)),4)
             knn_score = round(r2_score(y_test, knn_regression.predict(X_test)),2)
             knn = round(float(knn_y_pred[0]), 2)
-            fo = { 'Height(m)': knn,'r2 score': knn_score,'Mean square error':mse}
+            fo = {'Model':'KNN','Age':age,'Given Weight (Kg)': weight, 'Height(m)': knn,'r2 score': knn_score,'Mean square error':mse}
             return render_template('result.html', result=fo)
     except Exception as e:
         traceback.print_exc()  # Print the traceback to the console
@@ -281,7 +300,7 @@ def ANN1():
             new_weight_scaled = scaler.transform(new_weight)
             ann_prediction = round(model1.predict(new_weight_scaled)[0][0],2)
     
-            fo = {'Age':age,'Given Weight (Kg)': weight, 'Height(m)': ann_prediction,'r2 score': ann_score,'Mean square error':mse}
+            fo = {'Model':'ANN','Age':age,'Given Weight (Kg)': weight, 'Height(m)': ann_prediction,'r2 score': ann_score,'Mean square error':mse}
             return render_template('result.html', result=fo)
 
     except Exception as e:
