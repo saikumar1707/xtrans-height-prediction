@@ -1,66 +1,69 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Inputs with Container</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .input-container {
-            max-width: 400px;
-            text-align: center;
-        }
-
-        input[type="text"] {
-            padding: 10px;
-            margin-bottom: 10px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        .submit-button {
-            padding: 10px 20px;
-            font-size: 16px;
-            border: none;
-            border-radius: 4px;
-            background-color: #4CAF50;
-            color: white;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .submit-button:hover {
-            background-color: #45a049;
-        }
-    </style>
+    <title>Select the estimators</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='chatgpt.css') }}">
 </head>
 <body>
-    <h1>Enter Details</h1>
+    <h1>
+        <a href="https://xtranssolutions.com/about/" target="_blank">
+            <img src="{{ url_for('static', filename='logo.jpg') }}" alt="xtranssolutions" width="80" height="80"><br>
+        </a>
+        Random Forest Model
+    </h1>
 
-    <div class="input-container">
-        <form action="/Random_Forest" method="POST">
-            <div class="input-group">
-                <label for="age">Age:</label>
-                <input type="number" id="age" name="age" placeholder="Enter Age" required>
-            </div>
-            <div class="input-group">
-                <label for="weight">Weight:</label>
-                <input type="number" id="weight" name="weight" placeholder="Enter Weight" required>
-            </div>
-            <div class="input-group">
-                <label for="estimators">Estimator value:</label>
-                <input type="number" id="estimators" name="estimators" placeholder="Enter estimator value" required>
-            </div>
-            <br>
+    <div class = "images-container">
+        <div class="image">
+            
+            <a href="https://www.javatpoint.com/machine-learning-random-forest-algorithm" target="_blank">
+                <img src="{{ url_for('static', filename='rfg.png') }}" alt="ML model learning" width="320" height="320">
+                <p>Click here to learn more about Random Forest Model</p>
+            </a>
+        </div>
+        <div class="form-container">
+            <form action="/Random_Forest" method="POST">
+                <div class="input-group">
+                    <label for="Age">Enter the Age to predict the height : </label>
+                    <input type="number" id="age" name="age" placeholder="Enter Age" required>
+                </div>
+                <div class="input-group">
+                    <label for="weight">Enter the Weight (KG) to predict the height : </label>
+                    <input type="number" id="weight" name="weight" placeholder="Enter Weight" required>
+                </div>
+                <div class="input-group">
+                    <label for="estimators">Estimator value:</label>
+                    <input type="number" id="estimators" name="estimators" placeholder="Enter estimator value" required>
+                </div>
+                <br>
+                <script>
+                    function goBack() {
+                        window.history.back();
+                    }
+                </script>
+                <button type="submit" class="submit-button">Submit</button>
+                 <button onclick="goBack()">Go Back</button>
+                
+            </form>
+        </div>
+        <div class = "text">
+                <ul>
+                    <li>The number of estimators in a Random Forest model determines the quantity of decision trees aggregated to make predictions, influencing the model's predictive power.</li><br>
+                    <li>Increasing the number of estimators often leads to better generalization and improved performance.</li><br>
+                    <li>At a certain point, additional trees might not significantly enhance performance and could lead to longer training times.</li><br>
+                    <li>Therefore, careful consideration and balancing computational resources with model effectiveness are required.</li>
+                </ul>            
+        </div>
+
+    </div>
+    <div class = "form-container">
+        <form action="/send" method="POST">
+            <label for="textbox">Any suggestions / queries !?</label>
+            <input type="text" id="textbox" name="textbox">
+            
             <button type="submit" class="submit-button">Submit</button>
         </form>
     </div>
+
+    
 </body>
 </html>
